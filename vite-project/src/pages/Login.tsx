@@ -1,47 +1,24 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
 
-  const navigate = useNavigate()
+const [input, setInput] = useState('')
+const [password, setPassword] = useState('')
 
-  const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
+const navigate = useNavigate()
 
-
-  const entrar = () => {
-
-    if(email && senha){
-      navigate("/dashboard")
-    }
-
-  }
+const Entrar = () => {
+    navigate('/home')
+}
 
 
   return (
     <div>
-
-      <h1>Bem vindo</h1>
-
-      <input
-        placeholder="Digite seu email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-
-
-      <input
-        type="password"
-        placeholder="Digite sua senha"
-        value={senha}
-        onChange={(e) => setSenha(e.target.value)}
-      />
-
-
-      <button onClick={entrar}>
-        Entrar
-      </button>
-
+        <h2>bem vindo</h2>
+        <input  placeholder='digite seu nome' value={input} onChange={(e) => setInput(e.target.value)}/>
+        <input placeholder='digite a senha' value={password} onChange={(e) => setPassword(e.target.value)} />
+        <button onClick={Entrar}>entrar</button> 
     </div>
   )
 }

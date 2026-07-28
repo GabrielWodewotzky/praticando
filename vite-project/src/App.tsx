@@ -1,27 +1,26 @@
-
 import React from 'react'
-import { Link, Route, Routes, useRoutes } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'
+import { Route, Routes } from 'react-router-dom'
+import Home from './pages/Home'
 import Login from './pages/Login'
-import NotFound from './pages/NotFound'
+import Produtos from './pages/Produtos'
 
 const App = () => {
-
-
   return (
     <div>
-        <Routes>
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='*' element={<NotFound/>}/>
-        </Routes>
+     
+      <Routes>
 
-        <Link to="/login">login</Link> | {" "}
-        <Link to="/dashboard">dashboard</Link> | {" "}
-        
-
+          <Route path='/' element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route  path="/frutas" element={<Produtos />}/>
+      </Routes>
     </div>
   )
 }
 
 export default App
+
+
+
+
+
