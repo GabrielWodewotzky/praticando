@@ -1,16 +1,12 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Funcionarios'
-import Detalhes from './pages/Detalhes'
-import Funcionarios from './pages/Funcionarios'
+import FormularioFuncionario from './pages/FormularioFuncionario'
 
 const App = () => {
   return (
     <div>
       <Routes>
-          <Route path='/' element={<Funcionarios />}/>
-          <Route path='/detalhes/:id' element={<Detalhes />} />
-          <Route path='/home'  element={<Home />}/>
+        <Route path='/' element={<FormularioFuncionario />}/>
       </Routes>
     </div>
   )
