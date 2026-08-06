@@ -1,13 +1,16 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import FormularioFuncionario from './pages/FormularioFuncionario'
+import Produtos from './pages/Produtos'
+import ListaTarefas from './pages/ListaTarefas'
+import Funcionarios from './pages/Funcionarios'
+
 
 const App = () => {
   return (
     <div>
-      <Routes>
-        <Route path='/' element={<FormularioFuncionario />}/>
-      </Routes>
+      <Produtos />
+      <ListaTarefas />
+      <Funcionarios />
     </div>
   )
 }
