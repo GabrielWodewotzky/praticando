@@ -1,44 +1,31 @@
-import React, { useState } from 'react'
-import TaskForm from './pages/TaskForm'
-import TaskItem from './pages/TaskItem'
-import TaskList from './pages/TaskList'
+import { useState } from 'react'
+import ActionCard from './pages/ActionCard'
+import NameUser from './pages/NameUser'
 
 
-export type Tarefa = {
 
-    titulo: string
-}
+
 
 const App = () => {
 
-const [tarefa, setTarefa] = useState<Tarefa[]>([{titulo: 'estudar react'}])
+const [mensagem, setMensagem] = useState<string>('verificar')
+const [mensagemRecusada, setMensagemRecusada] = useState<string>('verificar')
 
-const [tarefaInput, setTarefaInput] = useState('')
-
-const adicionar = () => {
-    setTarefa([
-        ...tarefa,
-        {
-            titulo: tarefaInput
-        }
-    ])
-    setTarefaInput('')
+ const handleAprovar = () => {
+  setMensagem('Mensagem aprovada!')
 }
 
-
-const remover = (id: string) => {
-    setTarefa(tarefa.filter(fill => fill.titulo !== id))
+const handleBloquear = () => {
+  setMensagemRecusada('Mensagem negada!')
 }
-
-
 
 
   return (
-    <div>
-        <TaskForm nome={'gabriel'} />
-        <TaskItem titulo={tarefaInput}  adicionar={setTarefaInput} />
-        <button onClick={adicionar}>adicioanar</button>
-        <TaskList lista={tarefa}  remover={remover}  />
+    <div className='text-white font-serif'>
+        <NameUser nome='Gabriel' />
+        <ActionCard title='aprovar' onAction={handleAprovar} mensagem={mensagem}  />
+        <ActionCard title='recusar' onAction={handleBloquear} mensagem={mensagemRecusada} />
+        
     </div>
   )
 }
