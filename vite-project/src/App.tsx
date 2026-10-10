@@ -1,36 +1,38 @@
 import React, { useState } from 'react'
-import type { Aluno } from './pages/AlunoCard'
-import AlunoCard from './pages/AlunoCard'
+import DespesaCard, { type Despesas } from './pages/DespesaCard'
 
 const App = () => {
 
-const [alunos, setAlunos] = useState<Aluno[]>([
- {nome: 'samuel', faltas: 2, ativo: true, id: 1}, {nome: 'flavio', faltas: 1, ativo: true, id: 2}
-])
+const [despesas, setDespesas] = useState<Despesas[]>([{
+  categoria: 'diaria', descricao: 'gastos do dia a dia', id: 1, valor: 250
+}, {id: 2, categoria: 'investimentos', descricao: 'dinheiro para investir', valor: 1000}])
+
+const AumentarValorDespesas = (id: number) => {
+  setDespesas((despesas) => despesas.map((d) => d.id === id ? {...d, valor: d.valor + 10} : d))
+}
 
 
-const AddNovasFaltas = (add: number) => {
-  setAlunos((addAlunos) => addAlunos.map((alunos) => alunos.id === add ? {...alunos, faltas: alunos.faltas + 1} : alunos))
+const calcularTotal = () => {
+  return despesas.reduce((acc, despesa) => acc + despesa.valor, 0)
 }
 
 
   return (
-    <div className='bg-blue-600 text-white font-normal flex flex-col gap-5'>
-        {alunos.map((aluno) => (
-          
-          
-          <AlunoCard 
-          key={aluno.id} 
-          Aluno={aluno}
-          addFaltas={AddNovasFaltas}
-           />  
-           
-          
-        ))}
+    <div className='flex flex-col items-center gap-1.5'>
+      <h1 className='text-white font-bold text-3xl'>lista de despesas</h1>
+      <p className='bg-red-400 text-2xl text-white rounded-3xl w-fit p-3'>despesas atuais</p>
+      <p className=''>soma total: {calcularTotal()}</p>
+    <div className='flex flex-col gap-5'>
+       {despesas.map((despesas) => (
+          <DespesaCard
+              key={despesas.id}
+              despesas={despesas}
+              onAumentarValor={AumentarValorDespesas}
+           />
+       ))}
+    </div>
     </div>
   )
 }
 
 export default App
-
-
