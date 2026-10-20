@@ -1,36 +1,59 @@
-import React, { useState } from 'react'
-import DespesaCard, { type Despesas } from './pages/DespesaCard'
+import { useState } from 'react'
+import LembreteCard from './pages/LembreteCard'
+import type { lembreteProps } from './pages/LembreteCard'
 
 const App = () => {
+  const [lembrete, setLembrete] = useState<lembreteProps[]>([
+    { id: 1, name: 'reformar parede', tipo: 'Pessoal' },
+    { id: 2, name: 'refazer planilha', tipo: 'Trabalho' },
+    { id: 3, name: 'lavar louça', tipo: 'Pessoal' },
+    { id: 4, name: 'subir deploy', tipo: 'Trabalho' }
+  ])
 
-const [despesas, setDespesas] = useState<Despesas[]>([{
-  categoria: 'diaria', descricao: 'gastos do dia a dia', id: 1, valor: 250
-}, {id: 2, categoria: 'investimentos', descricao: 'dinheiro para investir', valor: 1000}])
-
-const AumentarValorDespesas = (id: number) => {
-  setDespesas((despesas) => despesas.map((d) => d.id === id ? {...d, valor: d.valor + 10} : d))
-}
+  const [filtro, setFiltro] = useState<'Todos' | 'Trabalho' | 'Pessoal'>('Todos')
 
 
-const calcularTotal = () => {
-  return despesas.reduce((acc, despesa) => acc + despesa.valor, 0)
-}
 
+  const filtragem = lembrete.filter((obj) => {
+    if (filtro === 'Todos') return true 
+    return obj.tipo === filtro
+})
 
   return (
-    <div className='flex flex-col items-center gap-1.5'>
-      <h1 className='text-white font-bold text-3xl'>lista de despesas</h1>
-      <p className='bg-red-400 text-2xl text-white rounded-3xl w-fit p-3'>despesas atuais</p>
-      <p className=''>soma total: {calcularTotal()}</p>
-    <div className='flex flex-col gap-5'>
-       {despesas.map((despesas) => (
-          <DespesaCard
-              key={despesas.id}
-              despesas={despesas}
-              onAumentarValor={AumentarValorDespesas}
-           />
-       ))}
-    </div>
+    <div className='flex flex-col gap-4 p-6 items-center'>
+      <h1 className='text-3xl font-bold text-blue-950'>Lista de Lembretes</h1>
+
+      {/* Botões para alternar os filtros */}
+      <div className='flex gap-2'>
+        <button
+          onClick={() => setFiltro('Todos')}
+          className={`px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer ${filtro === 'Todos' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'
+            }`}
+        >
+          Todos
+        </button>
+        <button
+          onClick={() => setFiltro('Trabalho')}
+          className={`px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer ${filtro === 'Trabalho' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'
+            }`}
+        >
+          Trabalho
+        </button>
+        <button
+          onClick={() => setFiltro('Pessoal')}
+          className={`px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer ${filtro === 'Pessoal' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'
+            }`}
+        >
+          Pessoal
+        </button>
+      </div>
+
+      {/* Renders apenas a lista filtrada */}
+      <div className='flex flex-col gap-4 w-full'>
+        {filtragem.map((item) => (
+          <LembreteCard key={item.id} lembrete={item} />
+        ))}
+      </div>
     </div>
   )
 }
